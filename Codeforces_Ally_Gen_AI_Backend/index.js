@@ -25,12 +25,12 @@ app.use(express.json());
 // ~ and it's subjective to choose what should we prioritize more (wait time / response quality) ? ~
 
 const MODEL_PRIORITY_LIST = [
-    'gemini-2.5-flash',
-    'gemini-2.5-flash-lite',
     'gemini-2.0-flash',
     'gemini-2.0-flash-lite',
-    'gemini-1.5-flash',
+    'gemini-2.5-flash-lite',
     'gemini-2.5-pro',
+    'gemini-2.5-flash',
+    'gemini-1.5-flash',
     'gemini-1.5-flash-8b'
 ];
 
