@@ -107,7 +107,7 @@ function App(){
                     return;
                 }
 
-                fetch('http://localhost:3001/api/rephrase', {
+                fetch('https://codeforces-ally.onrender.com/api/rephrase', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ problemText: response.content }),
@@ -141,7 +141,7 @@ function App(){
 
                 const body = { editorialText: response.content, ...requestBody };
 
-                fetch(`http://localhost:3001${endpoint}`, {
+                fetch(`https://codeforces-ally.onrender.com${endpoint}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body),
