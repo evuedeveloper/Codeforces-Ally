@@ -15,7 +15,8 @@ if(!process.env.GEMINI_API_KEY){
 }
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 // ~ Routes ~
