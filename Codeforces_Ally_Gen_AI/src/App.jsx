@@ -94,33 +94,37 @@ function App(){
 
     // ~ Feature Handlers ~
     const handleRephraseClick = () => {
-
+        
         addUserMessage('Rephrase the problem');
         setIsLoading(true);
-        
+    
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            chrome.tabs.sendMessage(tabs[0].id, { action: "getProblem" }, (response) => {
+            chrome.tabs.sendMessage(tabs[0].id, { action: "checkEditorial" }, (editorialResponse) => {
                 
-                if((chrome.runtime.lastError) || (response?.error)){
-                    addBotMessage(response?.error || "chrome runtime eroror");
-                    setIsLoading(false);
+                if(chrome.runtime.lastError || editorialResponse?.error){
+                    handleError(editorialResponse);
                     return;
                 }
-
-                fetch('https://codeforces-ally.onrender.com/api/rephrase', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ problemText: response.content }),
-                })
-
-                .then(res   => res.json())
-                .then(data  => addBotMessage(data.rephrasedText || "Sorry, I couldn't rephrase that."))
-                .catch(()   => addBotMessage("Sorry, something went wrong while contacting the AI."))
-                .finally(() => setIsLoading(false));
-
+    
+                chrome.tabs.sendMessage(tabs[0].id, { action: "getProblem" }, (problemResponse) => {
+                    if(chrome.runtime.lastError || problemResponse?.error){
+                        handleError(problemResponse);
+                        return;
+                    }
+    
+                    fetch('https://codeforces-ally.onrender.com/api/rephrase', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ problemText: problemResponse.content }),
+                    })
+                    .then(res => res.json())
+                    .then(data => addBotMessage(data.rephrasedText || "Sorry, I couldn't rephrase that."))
+                    .catch(() => addBotMessage("Sorry, something went wrong while contacting the AI."))
+                    .finally(() => setIsLoading(false));
+                });
             });
         });
-
+        
     };
 
 
@@ -216,7 +220,7 @@ function App(){
 
                 }
                 
-                catch (error){
+                catch(error){
                     console.error("Recommendation error:", error);
                     addBotMessage("Failed to fetch or process the problemset. Please try again later.");
                 }

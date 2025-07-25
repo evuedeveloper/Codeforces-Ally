@@ -38,6 +38,57 @@ function getProblemContent(){
 
 // ~ returns promise, if found then content string else error string ~
 
+async function checkEditorialExists(){
+    
+    try{
+
+        const pathSegments = window.location.pathname.split('/');
+        let contestId;
+
+        if(pathSegments.includes('contest')){
+            contestId = pathSegments[pathSegments.indexOf('contest') + 1];
+        }
+        else if(pathSegments.includes('problemset')){
+            contestId = pathSegments[pathSegments.indexOf('problem') + 1];
+        }
+
+        if(!contestId){
+            return { error : "Could not determine the contestId from the URL" };
+        }
+
+        const contestUrl = `https://codeforces.com/contest/${contestId}`;
+        const response   = await fetch(contestUrl);
+
+        if(!response.ok){
+            return { error : "The contest page is not available. The contest might be ongoing." };
+        }
+
+        const contestPageText = await response.text();
+        const tempDiv         = document.createElement('div');
+        tempDiv.innerHTML     = contestPageText;
+
+        const links           = Array.from(tempDiv.querySelectorAll('a'));
+        
+        const editorialLinkElement = links.find(a => a.textContent.toLowerCase().includes('tutorial') || a.textContent.toLowerCase().includes('editorial'));
+
+        if(!editorialLinkElement){
+            return { error: "This feature is disabled until the contest is over and the official editorial is published :)" };
+        }
+
+        return { success: true };
+
+    }
+
+    catch(error){
+        console.error("Editorial check error:", error);
+        return { error: error.message };
+    }
+
+}
+
+
+// ~ returns promise, if found then content string else error string ~
+
 async function getEditorialContent(){
     
     try{
@@ -201,6 +252,10 @@ function initialize(){
         else if (request.action === "getHints"){
             getEditorialContent().then(sendResponse);
             return true; // Imp: we return true for async response to keep the port open.
+        }
+        else if(request.action === "checkEditorial"){
+            checkEditorialExists().then(sendResponse);
+            return true;
         }
 
 
