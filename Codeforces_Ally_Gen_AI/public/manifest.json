@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Codeforces Ally",
+  "version": "0.1.0",
+  "description": "An AI-powered assistant to help you learn from Codeforces problems.",
+  "permissions": [
+    "sidePanel",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://codeforces.com/*",
+    "*://*.codeforces.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_title": "Open Codeforces Ally"
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://codeforces.com/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}
