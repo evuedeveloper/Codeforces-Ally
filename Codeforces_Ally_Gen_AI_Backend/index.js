@@ -32,7 +32,7 @@ app.post('/api/rephrase', async (req, res) => {
             return res.status(400).json({ error: 'Problem text is required' });
         }
 
-        const model    =  genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+        const model    =  genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
         const prompt   = `Rephrase the following competitive programming problem in simple, easy-to-understand terms. Focus on clarifying the core task, input, and expected output. Do not use any markdown formatting like bold or italics; use plain text only.
 
         Problem Text: "${problemText}"`;
@@ -63,7 +63,7 @@ app.post('/api/get-hints', async (req, res) => {
         }
 
         const model = genAI.getGenerativeModel({
-            model: 'gemini-2.0-flash',
+            model: 'gemini-2.5-flash',
             generationConfig: { responseMimeType: "application/json" }
         });
 
@@ -96,7 +96,7 @@ app.post('/api/get-idea-walkthrough', async (req, res) => {
             return res.status(400).json({ error: 'Editorial text is required.' });
         }
 
-        const model    = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+        const model    = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
         const prompt   = `Based on the following editorial, provide a concise walkthrough of the main idea. Do not include code. Explain the logic in simple terms. Do not use any markdown formatting like bold or italics; use plain text only.
 
         Editorial Text: "${editorialText}"`;
@@ -125,7 +125,7 @@ app.post('/api/get-editorial-explanation', async (req, res) => {
             return res.status(400).json({ error: 'Editorial text is required.' });
         }
 
-        const model    =  genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+        const model    =  genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
         const prompt   = `You are a helpful programming tutor. Explain the following editorial in a clear and concise way, including the source code from the editorial but do not add comments in the editorial code, paste the code as it is. Format the code properly within markdown code blocks. After writing editorial code, explain the code properly. For the explanatory text, do not use any markdown formatting like bold or italics; use plain text only.
 
         Editorial Text: "${editorialText}"`;
@@ -154,7 +154,7 @@ app.post('/api/translate-code', async (req, res) => {
           return res.status(400).json({ error: 'Editorial text and target language are required.' });
         }
         
-        const model    =  genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+        const model    =  genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
         const prompt   = `From the following editorial text, extract only the source code and translate it into ${targetLanguage}. Provide only the translated code in a single markdown block, with no additional explanation.
 
         Editorial Text: "${editorialText}"
