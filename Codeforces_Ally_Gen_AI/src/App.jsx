@@ -302,7 +302,7 @@ function App(){
             <>
                 {/* <button className="action-button" onClick={handleRephraseClick} disabled={isLoading}>Rephrase the problem</button> */}
                 <button className="action-button" onClick={() => fetchEditorialAndPrompt('Hints for this problem?', '/api/get-hints', 'hints')} disabled={isLoading}>Hints for this problem?</button>
-                <button className="action-button" onClick={() => fetchEditorialAndPrompt('Idea Walkthrough', '/api/get-idea-walkthrough', 'ideaWalkthrough')} disabled={isLoading}>Editorial Idea Walkthrough</button>
+                <button className="action-button" onClick={() => fetchEditorialAndPrompt('Editorial Idea Walkthrough', '/api/get-idea-walkthrough', 'ideaWalkthrough')} disabled={isLoading}>Editorial Idea Walkthrough</button>
                 {/* <button className="action-button" onClick={() => fetchEditorialAndPrompt('Editorial Explanation', '/api/get-editorial-explanation', 'editorialExplanation')} disabled={isLoading}>Editorial Explanation</button> */}
                 <button className="action-button" onClick={() => setShowLanguageOptions(true)} disabled={isLoading}>Translate Editorial Code</button>
                 <button className="action-button" onClick={handleRecommendClick} disabled={isLoading}>Recommend Similar Problems</button>
