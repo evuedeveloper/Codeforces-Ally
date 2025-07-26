@@ -93,6 +93,9 @@ function App(){
 
 
     // ~ Feature Handlers ~
+
+    /*
+
     const handleRephraseClick = () => {
         
         addUserMessage('Rephrase the problem');
@@ -127,7 +130,7 @@ function App(){
         
     };
 
-
+    */
 
     const fetchEditorialAndPrompt = (userMessage, endpoint, dataKey, requestBody = {}) => {
         
@@ -297,10 +300,10 @@ function App(){
 
         return (
             <>
-                <button className="action-button" onClick={handleRephraseClick} disabled={isLoading}>Rephrase the problem</button>
+                {/* <button className="action-button" onClick={handleRephraseClick} disabled={isLoading}>Rephrase the problem</button> */}
                 <button className="action-button" onClick={() => fetchEditorialAndPrompt('Hints for this problem?', '/api/get-hints', 'hints')} disabled={isLoading}>Hints for this problem?</button>
                 <button className="action-button" onClick={() => fetchEditorialAndPrompt('Idea Walkthrough', '/api/get-idea-walkthrough', 'ideaWalkthrough')} disabled={isLoading}>Idea Walkthrough</button>
-                <button className="action-button" onClick={() => fetchEditorialAndPrompt('Editorial Explanation', '/api/get-editorial-explanation', 'editorialExplanation')} disabled={isLoading}>Editorial Explanation</button>
+                {/* <button className="action-button" onClick={() => fetchEditorialAndPrompt('Editorial Explanation', '/api/get-editorial-explanation', 'editorialExplanation')} disabled={isLoading}>Editorial Explanation</button> */}
                 <button className="action-button" onClick={() => setShowLanguageOptions(true)} disabled={isLoading}>Translate Code</button>
                 <button className="action-button" onClick={handleRecommendClick} disabled={isLoading}>Recommend Similar Problems</button>
             </>

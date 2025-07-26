@@ -79,6 +79,8 @@ async function generateWithFallback(prompt, generationConfig = {}) {
 
 // ~ Routes ~
 
+/*
+
 app.post('/api/rephrase', async (req, res) => {
 
     console.log("\n Request received for /api/rephrase ");
@@ -109,6 +111,7 @@ app.post('/api/rephrase', async (req, res) => {
 
 });
 
+*/
 
 
 app.post('/api/get-hints', async (req, res) => {
@@ -176,6 +179,7 @@ app.post('/api/get-idea-walkthrough', async (req, res) => {
 });
 
 
+/*
 
 app.post('/api/get-editorial-explanation', async (req, res) => {
 
@@ -207,7 +211,7 @@ app.post('/api/get-editorial-explanation', async (req, res) => {
 
 });
 
-
+*/
 
 app.post('/api/translate-code', async (req, res) => {
 
