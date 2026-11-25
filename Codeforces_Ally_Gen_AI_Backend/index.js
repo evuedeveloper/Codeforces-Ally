@@ -24,23 +24,11 @@ app.use(express.json());
 // ~ kept gemini-2.5-pro on the lower side cause it takes around 30 seconds time to think ~
 // ~ and it's subjective to choose what should we prioritize more (wait time / response quality) ? ~
 
-/*
 const MODEL_PRIORITY_LIST = [
-    'gemini-2.0-flash',
-    'gemini-2.0-flash-lite',
-    'gemini-2.5-flash-lite',
-    'gemini-2.5-pro',
-    'gemini-2.5-flash',
-    'gemini-1.5-flash',
-    'gemini-1.5-flash-8b'
-];
-*/
-// temporary try fix for a quick check
-const MODEL_PRIORITY_LIST = [
-    'gemini-3.8-flash',
     'gemini-3.5-flash-lite',
     'gemini-3.1-flash-lite',
-    'gemini-4-hydrogen'
+    'gemini-3.6-flash',
+    'gemini-3.8-flash'
 ];
 
 async function generateWithFallback(prompt, generationConfig = {}) {
@@ -66,15 +54,13 @@ async function generateWithFallback(prompt, generationConfig = {}) {
 
         catch(error){
 
-            if(error instanceof GoogleGenerativeAIFetchError && error.status === 429){
-                // ~ If it's a 429 error, we can try other models ~
-                console.warn(` ~ ${modelName} model is rate-limited. trying next model.. ~ `);
-                continue; 
+            if(error instanceof GoogleGenerativeAIFetchError && (error.status === 429 || error.status === 404 || error.status === 503 || error.status === 500)){
+                console.warn(` ~ ${modelName} model returned ${error.status}. trying next model.. ~ `);
+                continue;
             }
-
+            
             else{
-                // ~ But if 500 or smth else, we don't ~
-                console.error(`~ Some other problem with ${modelName} model ~ `, error);
+                console.error(` ~ Some other problem with ${modelName} model ~ `, error);
                 throw error;
             }
 
@@ -139,7 +125,7 @@ app.post('/api/get-hints', async (req, res) => {
         //     generationConfig: { responseMimeType: "application/json" }
         // });
 
-        const prompt   = `From the following editorial, generate exactly 3 distinct, non-spoiler hints. Frame them as questions to guide a student. Return the hints as a JSON array of strings. For example: ["Hint 1?", "Hint 2?", "Hint 3?"]. Do not use markdown.
+        const prompt   = `From the following editorial, generate exactly 3 distinct, non-spoiler hints. Frame them as questions to guide a student. Return the hints as a JSON array of strings. For example: ["Hint 1?", "Hint 2?", "Hint 3?"]. Do not use markdown. Write all variables and math in plain text.
         
         Editorial Text: "${editorialText}"`;
         // const result   = await model.generateContent(prompt);
@@ -170,7 +156,7 @@ app.post('/api/get-idea-walkthrough', async (req, res) => {
         }
 
         // const model    = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-        const prompt   = `Based on the following editorial, provide a concise walkthrough of the main idea. Do not include code. Explain the logic in simple terms. Do not use any markdown formatting like bold or italics; use plain text only.
+        const prompt   = `Based on the following editorial, provide a concise walkthrough of the main idea. Do not include code. Explain the logic in simple terms. Do not use any markdown formatting like bold or italics; use plain text only. Write all variables and math in plain text.
         
         Editorial Text: "${editorialText}"`;
         // const result   = await model.generateContent(prompt);
