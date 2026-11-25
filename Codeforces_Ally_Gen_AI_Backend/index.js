@@ -24,6 +24,7 @@ app.use(express.json());
 // ~ kept gemini-2.5-pro on the lower side cause it takes around 30 seconds time to think ~
 // ~ and it's subjective to choose what should we prioritize more (wait time / response quality) ? ~
 
+/*
 const MODEL_PRIORITY_LIST = [
     'gemini-2.0-flash',
     'gemini-2.0-flash-lite',
@@ -32,6 +33,14 @@ const MODEL_PRIORITY_LIST = [
     'gemini-2.5-flash',
     'gemini-1.5-flash',
     'gemini-1.5-flash-8b'
+];
+*/
+// temporary try fix for a quick check
+const MODEL_PRIORITY_LIST = [
+    'gemini-3.8-flash',
+    'gemini-3.5-flash-lite',
+    'gemini-3.1-flash-lite',
+    'gemini-4-hydrogen'
 ];
 
 async function generateWithFallback(prompt, generationConfig = {}) {
