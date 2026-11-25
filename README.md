@@ -30,7 +30,7 @@
 <h2>Installation</h2>
 <h3>For Chrome & Chromium-based Browsers</h3>
 <ul>
-  <li>Download the latest release from the <a href="https://github.com/evuedeveloper/Codeforces-Ally/releases">releases page</a>.</li>
+  <li>Download the latest release from the <a href="https://github.com/evuedeveloper/Codeforces-Ally/releases" target="_blank" rel="noopener noreferrer">releases page</a>.</li>
   <li>Extract the ZIP file.</li>
   <li>Open your browser and go to the extensions page by navigating to <code>chrome://extensions/</code>.</li>
   <li>In the top-right corner of the extensions page, enable the <strong>"Developer mode"</strong> toggle.</li>
